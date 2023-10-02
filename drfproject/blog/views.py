@@ -12,15 +12,3 @@ from .serializers import PostsSerializer
 class PostsViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostsSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
-from django.middleware.csrf import get_token
-
-class CSRFTokenView(View):
-    def get(self, request, *args, **kwargs):
-        response = HttpResponse(status=204)
-        # Установите CSRF-токен в куки
-        response.set_cookie('csrftoken', get_token(request))
-        return response
-
